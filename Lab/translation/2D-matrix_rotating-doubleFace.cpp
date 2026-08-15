@@ -6,27 +6,27 @@ void MatTranspose(int base_matrix[3][3],int dir, int rep){
     int len=3; //Length of the Matrix
     int resMat[3][3]; //Resulted Matrix
     for(int i=0;i<rep;i++){ //repeating
-        if(dir>0){ //checking direction dir=CW
+        if(dir<0){ //Transposing CW
             for(int r=0;r<len;r++){ //row
                 for(int c=0;c<len;c++){ //column
                     resMat[c][len-r-1] = base_matrix[r][c];
                 }
             }
-        //re-assign value of temp_matrix to base_matrix
-            for(int r=0;r<len;r++){
-                for(int c=0;c<len;c++){   
-                    base_matrix[r][c] = resMat[r][c];
+        }
+        if(dir>0){//Transposing Anti-CW
+            for(int c=0; c<len;c++){
+                for(int r=0; r<len; r++){
+                    resMat[c][r] = base_matrix[r][len-c-1];
                 }
             }
         }
+        //re-assign value of temp_matrix to base_matrix
+        for(int r=0;r<len;r++){for(int c=0;c<len;c++){base_matrix[r][c] = resMat[r][c];}}
     }
-
     //Print Result
     for(int r=0;r<len;r++){
         cout << "{";
-        for(int c=0;c<len;c++){
-            if(c==2){cout << base_matrix[r][c];}else{cout << base_matrix[r][c]<<",";}
-        }
+        for(int c=0;c<len;c++){if(c==2){cout << base_matrix[r][c];}else{cout << base_matrix[r][c]<<",";}}
         cout << "}\n";
     }
 }
@@ -38,7 +38,7 @@ int main(){
         {4,5,6},
         {7,8,9}
     };
-    MatTranspose(matA,1,3);
+    MatTranspose(matA,1,1);
     return 0;
 }
 
